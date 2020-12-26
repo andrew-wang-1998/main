@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\apiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return abort(403);
 });
+
+Route::get('/children_senior_institutes', [apiController::class,"children_senior_institutes"]);
+Route::get('/children_senior_inspections', [apiController::class,"children_senior_inspections"]);
+Route::get('/crack_down_signals', [apiController::class,"crack_down_signals"]);
+Route::get('/crack_down_nights', [apiController::class,"crack_down_nights"]);
+Route::get('/crack_down_fireplugs', [apiController::class,"crack_down_fireplugs"]);
+Route::get('/cctv_states', [apiController::class,"cctv_states"]);

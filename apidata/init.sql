@@ -1,0 +1,200 @@
+/*
+ * Copyright (c) 2020. Wang Jung Hee
+ * Creation Date : 2020 - 12 - 25
+ */
+
+CREATE TABLE IF NOT EXISTS children_senior_institutes (
+    id INT NOT NULL AUTO_INCREMENT,
+    ZN_TY VARCHAR(191) NOT NULL,
+    SISUL_TY VARCHAR(20) NOT NULL,
+    SISUL_NM VARCHAR(50) NOT NULL,
+    RD_ADDR VARCHAR(191) NOT NULL,
+    LA DOUBLE NOT NULL,
+    LO DOUBLE NOT NULL,
+    PLC_STN VARCHAR(191) NOT NULL,
+    CCTV_YN VARCHAR(2) NOT NULL,
+    CCTV_CT INT NOT NULL,
+    RD_WIDE VARCHAR(30) NOT NULL,
+    STD_DATE VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
+) CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOAD DATA INFILE '/var/apidata/1.csv'
+INTO TABLE children_senior_institutes
+CHARACTER SET 'utf8mb4'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(@ZN_TY,@SISUL_TY,@SISUL_NM,@RD_ADDR,@LA,@LO,@PLC_STN,@CCTV_YN,@CCTV_CT,@RD_WIDE,@STD_DATE)
+SET ZN_TY = @ZN_TY,
+    SISUL_TY = @SISUL_TY,
+    SISUL_NM = @SISUL_NM,
+    RD_ADDR = @RD_ADDR,
+    LA = @LA,
+    LO = @LO,
+    PLC_STN = @PLC_STN,
+    CCTV_YN = @CCTV_YN,
+    CCTV_CT = @CCTV_CT,
+    RD_WIDE = @RD_WIDE,
+    STD_DATE = @STD_DATE;
+
+CREATE TABLE IF NOT EXISTS children_senior_inspections (
+    id INT NOT NULL AUTO_INCREMENT,
+    INST_TY VARCHAR(20) NOT NULL,
+    INST_NM VARCHAR(50) NOT NULL,
+    LA DOUBLE NOT NULL,
+    LO DOUBLE NOT NULL,
+    DONG VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
+) CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOAD DATA INFILE '/var/apidata/2.csv'
+    INTO TABLE children_senior_inspections
+    CHARACTER SET 'utf8mb4'
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (@INST_TY,@INST_NM,@LA,@LO,@DONG)
+    SET INST_TY = @INST_TY,
+        INST_NM = @INST_NM,
+        LA = @LA,
+        LO = @LO,
+        DONG = @DONG;
+
+CREATE TABLE IF NOT EXISTS crack_down_signals (
+    id INT NOT NULL AUTO_INCREMENT,
+    STD_DATE DATE NOT NULL,
+    TCKT_NMBR INT NOT NULL,
+    TP_CR VARCHAR(20) NOT NULL,
+    TCKT_ADDR VARCHAR(191) NOT NULL,
+    DONG VARCHAR(20) NOT NULL,
+    TW_CR VARCHAR(20) NOT NULL,
+    LA DOUBLE NOT NULL,
+    LO VARCHAR(191) NOT NULL,
+    PRIMARY KEY (id)
+) CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOAD DATA INFILE '/var/apidata/3.csv'
+    INTO TABLE crack_down_signals
+    CHARACTER SET 'utf8mb4'
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (@INDEX,@STD_DATE,@TCKT_NMBR,@TP_CR,@TCKT_ADDR,@DONG,@TW_CR,@LA,@LO)
+    SET id = @INDEX,
+        STD_DATE = STR_TO_DATE(@STD_DATE,'%Y-%m-%d'),
+        TCKT_NMBR = @TCKT_NMBR,
+        TP_CR = @TP_CR,
+        TCKT_ADDR = @TCKT_ADDR,
+        DONG = @DONG,
+        TW_CR = @TW_CR,
+        LA = @LA,
+        LO = @LO;
+
+CREATE TABLE IF NOT EXISTS crack_down_nights (
+    id INT NOT NULL AUTO_INCREMENT,
+    STD_YM VARCHAR(8) NOT NULL,
+    QU VARCHAR(4) NOT NULL,
+    HLD BOOLEAN NOT NULL,
+    DONG VARCHAR(20) NOT NULL,
+    CTGR VARCHAR(20) NOT NULL,
+    LCT VARCHAR(191) NOT NULL,
+    FRGH_PRK_ADDR TEXT NOT NULL,
+    LA DOUBLE NOT NULL,
+    LO DOUBLE NOT NULL,
+    PRIMARY KEY (id)
+) CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOAD DATA INFILE '/var/apidata/4.csv'
+    INTO TABLE crack_down_nights
+    CHARACTER SET 'utf8mb4'
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (@INDEX,@STD_YM,@QU,@HLD,@DONG,@CTGR,@LCT,@FRGH_PRK_ADDR,@LA,@LO)
+    SET id = @INDEX,
+        STD_YM = @STD_YM,
+        QU = @QU,
+        HLD = @HLD,
+        DONG = @DONG,
+        CTGR = @CTGR,
+        LCT = @LCT,
+        FRGH_PRK_ADDR = @FRGH_PRK_ADDR,
+        LA = @LA,
+        LO = @LO;
+
+CREATE TABLE IF NOT EXISTS crack_down_fireplugs (
+    id INT NOT NULL AUTO_INCREMENT,
+    TYPE VARCHAR(8) NOT NULL,
+    YEAR INT NOT NULL,
+    MONTH INT NOT NULL,
+    DOW VARCHAR(2) NOT NULL,
+    HOLIDAY_YN BOOLEAN NOT NULL,
+    TIME INT NOT NULL,
+    REGION VARCHAR(191) NOT NULL,
+    DONG VARCHAR(20) NOT NULL,
+    GUBUN VARCHAR(20) NOT NULL,
+    ADDR TEXT NOT NULL,
+    LO DOUBLE NOT NULL,
+    LA DOUBLE NOT NULL,
+    H_DONG VARCHAR(10) NOT NULL,
+    REG_CT INT NOT NULL,
+    LABEL VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
+) CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOAD DATA INFILE '/var/apidata/5.csv'
+    INTO TABLE crack_down_fireplugs
+    CHARACTER SET 'utf8mb4'
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (@TYPE,@YEAR,@MONTH,@DOW,@HOLIDAY_YN,@TIME,@REGION,@DONG,@GUBUN,@ADDR,@LO,@LA,@H_DONG,@REG_CT,@LABEL)
+    SET TYPE = @TYPE,
+        YEAR = @YEAR,
+        MONTH = @MONTH,
+        DOW = @DOW,
+        HOLIDAY_YN = @HOLIDAY_YN,
+        TIME = @TIME,
+        REGION = @REGION,
+        DONG = @DONG,
+        GUBUN = @GUBUN,
+        ADDR = @ADDR,
+        LO = @LO,
+        LA = @LA,
+        H_DONG = @H_DONG,
+        REG_CT = @REG_CT,
+        LABEL = @LABEL;
+
+CREATE TABLE IF NOT EXISTS cctv_states (
+    id INT NOT NULL AUTO_INCREMENT,
+    CCTV_TY VARCHAR(12) NOT NULL,
+    LO DOUBLE NOT NULL,
+    LA DOUBLE NOT NULL,
+    CCTV_CNT INT NOT NULL,
+    STD_DATE VARCHAR(10) NOT NULL,
+    DONG VARCHAR(10) NOT NULL,
+    ADDR TEXT NOT NULL,
+    PRIMARY KEY (id)
+) CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOAD DATA INFILE '/var/apidata/6.csv'
+    INTO TABLE cctv_states
+    CHARACTER SET 'utf8mb4'
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (@CCTV_TY,@LO,@LA,@CCTV_CNT,@STD_DATE,@DONG,@ADDR)
+    SET CCTV_TY = @CCTV_TY,
+        LO = @LO,
+        LA = @LA,
+        CCTV_CNT = @CCTV_CNT,
+        STD_DATE = @STD_DATE,
+        DONG = @DONG,
+        ADDR = @ADDR;
